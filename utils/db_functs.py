@@ -13,6 +13,8 @@ def create_database(db_file_path: str) -> None:
     # Check if the database file exists
     if not os.path.exists(db_file_path):
         # If the file doesn't exist, create it
+        # Ensure the directory exists
+        os.makedirs(os.path.dirname(db_file_path), exist_ok=True)
         # Create a connection to the database
         conn = sqlite3.connect(db_file_path)
         conn.close()  # Close the connection
