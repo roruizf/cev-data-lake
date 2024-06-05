@@ -1,6 +1,8 @@
 import sqlite3
 import os
 import pandas as pd
+from typing import Optional
+
 
 def create_database(db_file_path: str) -> None:
     """
@@ -160,3 +162,69 @@ def insert_unique_rows_from_dataframe(db_file_path: str, table_name: str, df: pd
         # Close the database connection
         if conn:
             conn.close()
+
+def check_table_exists(db_file_path: str, table_name: str) -> bool:
+    """
+    Check if a table with the specified name exists in the SQLite database.
+
+    Args:
+    db_file_path (str): The path to the SQLite database file.
+    table_name (str): The name of the table to check.
+
+    Returns:
+    bool: True if the table exists, False otherwise.
+    """
+    # Connect to the SQLite database
+    conn = sqlite3.connect(db_file_path)
+    cursor = conn.cursor()
+
+    # Query to check if the table exists
+    query = f"SELECT name FROM sqlite_master WHERE type='table' AND name='{table_name}';"
+    cursor.execute(query)
+
+    # Fetch the result
+    result: Optional[tuple] = cursor.fetchone()
+
+    # Close the connection
+    cursor.close()
+    conn.close()
+
+    # Return True if the table exists, False otherwise
+    return result is not None
+
+def is_table_empty(db_file_path: str, table_name: str) -> Optional[bool]:
+    """
+    Check if a table in an SQLite database is empty.
+
+    Args:
+    db_file_path (str): The path to the SQLite database file.
+    table_name (str): The name of the table to check.
+
+    Returns:
+    Optional[bool]: True if the table is empty, False if it is not empty, None if the table does not exist.
+    """
+    # Connect to the SQLite database
+    conn = sqlite3.connect(db_file_path)
+    cursor = conn.cursor()
+
+    # SQL query to count the number of rows in the table
+    count_rows_query = f"SELECT COUNT(*) FROM {table_name};"
+
+    try:
+        # Execute the query
+        cursor.execute(count_rows_query)
+        # Fetch the result
+        row_count = cursor.fetchone()[0]
+        # Return True if row_count is 0, otherwise False
+        return row_count == 0
+    except sqlite3.Error as e:
+        if 'no such table' in str(e):
+            print(f"Table '{table_name}' does not exist.")
+            return None
+        else:
+            print(f"An error occurred: {e}")
+            return None
+    finally:
+        # Close the connection
+        cursor.close()
+        conn.close()

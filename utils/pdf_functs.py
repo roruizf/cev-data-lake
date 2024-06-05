@@ -79,10 +79,10 @@ def _from_procentaje_ahorro_to_letra(porcentaje_ahorro: float) -> str:
             letra = None
         return letra
 
-def scrape_informe_cev_v2_pagina1(pdf_file_path):
+def scrape_informe_cev_v2_pagina1(pdf_report):
     # Informe CEV (v.2) - Page 1
 
-    pdf_report = fitz.open(pdf_file_path)
+    # pdf_report = fitz.open(pdf_file_path)
     page_number = 0  # Page number (starting from 0)
     page = pdf_report[page_number]
 
@@ -144,14 +144,14 @@ def scrape_informe_cev_v2_pagina1(pdf_file_path):
     emitida_el
     df['emitida_el'] = emitida_el
     # Close the PDF document
-    pdf_report.close()
+    # pdf_report.close()
     # END
     return df
 
-def scrape_informe_cev_v2_pagina2(pdf_file_path):
+def scrape_informe_cev_v2_pagina2(pdf_report):
     # Informe CEV (v.2) - Page 1
 
-    pdf_report = fitz.open(pdf_file_path)
+    # pdf_report = fitz.open(pdf_file_path)
     page_number = 1  # Page number (starting from 0)
     page = pdf_report[page_number]
     # ## Pagina 2
@@ -391,15 +391,15 @@ def scrape_informe_cev_v2_pagina2(pdf_file_path):
     infiltraciones_rah_exigencia = extracted_text
     df['infiltraciones_rah_exigencia'] = infiltraciones_rah_exigencia.replace('\n', '').strip()
     # Close the PDF document
-    pdf_report.close()
+    # pdf_report.close()
 
     # ### END
     return df
 
-def scrape_informe_cev_v2_pagina3_consumos(pdf_file_path):
+def scrape_informe_cev_v2_pagina3_consumos(pdf_report):
 
     # # Informe CEV (v.2) - Page 3
-    pdf_report = fitz.open(pdf_file_path)
+    #pdf_report = fitz.open(pdf_file_path)
     page_number = 2  # Page number (starting from 0)
     page = pdf_report[page_number]
 
@@ -694,12 +694,12 @@ def scrape_informe_cev_v2_pagina3_consumos(pdf_file_path):
     df['coeficiente_energetico_c'] = float(coeficiente_energetico_c) if coeficiente_energetico_c.replace(',', '.').replace('.', '', 1).isdigit() else None
  
     # Close the PDF document
-    pdf_report.close()
+    # pdf_report.close()
     return df
 
-def scrape_informe_cev_v2_pagina3_envolvente(pdf_file_path):
+def scrape_informe_cev_v2_pagina3_envolvente(pdf_report):
     # ### Load the PDF
-    pdf_report = fitz.open(pdf_file_path)
+    #pdf_report = fitz.open(pdf_file_path)
     page_number = 2  # Page number (starting from 0)
     page = pdf_report[page_number]
 
@@ -841,14 +841,14 @@ def scrape_informe_cev_v2_pagina3_envolvente(pdf_file_path):
     # df['elementos_opacos_area_m2'] * df['elementos_opacos_U_W_m2_K'] + df['elementos_traslucidos_area_m2'] * df['elementos_traslucidos_U_W_m2_K'] + df['P01_W_K'] + df['P02_W_K'] + df['P03_W_K'] + df['P04_W_K'] + df['P05_W_K']
    
     # Close the PDF document
-    pdf_report.close()
+    # pdf_report.close()
     return df
 
 
 
-def scrape_informe_cev_v2_pagina4(pdf_file_path):
+def scrape_informe_cev_v2_pagina4(pdf_report):
     # # Informe CEV (v.2) - Page 4
-    pdf_report = fitz.open(pdf_file_path)
+    #pdf_report = fitz.open(pdf_file_path)
     page_number = 3  # Page number (starting from 0)
     page = pdf_report[page_number]
 
@@ -1006,8 +1006,8 @@ def scrape_informe_cev_v2_pagina4(pdf_file_path):
     return df
 
 
-def scrape_informe_cev_v2_pagina5(pdf_file_path):    
-    pdf_report = fitz.open(pdf_file_path)
+def scrape_informe_cev_v2_pagina5(pdf_report):    
+    #pdf_report = fitz.open(pdf_file_path)
     page_number = 4  # Page number (starting from 0)
     page = pdf_report[page_number]
 
@@ -1022,11 +1022,11 @@ def scrape_informe_cev_v2_pagina5(pdf_file_path):
     df['content'] = None
 
     # Close the PDF document
-    pdf_report.close()
+    # pdf_report.close()
     return df
 
-def scrape_informe_cev_v2_pagina6(pdf_file_path):
-    pdf_report = fitz.open(pdf_file_path)
+def scrape_informe_cev_v2_pagina6(pdf_report):
+    #pdf_report = fitz.open(pdf_file_path)
     page_number = 5  # Page number (starting from 0)
     page = pdf_report[page_number]
 
@@ -1041,12 +1041,12 @@ def scrape_informe_cev_v2_pagina6(pdf_file_path):
     df['content'] = None
 
     # Close the PDF document
-    pdf_report.close()
+    # pdf_report.close()
     return df
 
-def scrape_informe_cev_v2_pagina7(pdf_file_path):
+def scrape_informe_cev_v2_pagina7(pdf_report):
 
-    pdf_report = fitz.open(pdf_file_path)
+    #pdf_report = fitz.open(pdf_file_path)
     page_number = 6  # Page number (starting from 0)
     page = pdf_report[page_number]
 
@@ -1074,6 +1074,6 @@ def scrape_informe_cev_v2_pagina7(pdf_file_path):
     df['evaluador_rut']  = extracted_text[-2]
     df['evaluador_rol_minvu']  = extracted_text[-1]
     # Close the PDF document
-    pdf_report.close()
+    # pdf_report.close()
     return df
 
