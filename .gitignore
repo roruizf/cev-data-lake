@@ -6,3 +6,4 @@ notebooks/.ipynb_checkpoints
 *.csv
 notebooks/bin
 utils/__pycache__/
+notes.txt
